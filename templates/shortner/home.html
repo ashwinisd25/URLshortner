@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>URL Shortener</title>
+</head>
+<body  >
+    
+<div class="container" style="padding-top:2%;">
+<div class="row">
+    <div class="col-12 text-center py-2">
+        <h3>Shorten A Url</h3>
+    </div>
+    <div class="col-10 col-sm-10 col-md-6 mx-auto">
+
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ msg }}
+
+            <button type="button" class="close" data-dismiss="alert" area-label="Close">
+                <span area-hidden-true>&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'home' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="url" name="original" class="form-control" placeholder="Original Url">
+                </div>
+                <div class="form-group">
+        
+                    <p id="shorthelp" class="form-text text-muted">Enter URL to shorten.</p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary px-4" value="Generate">
+                </div>
+            </form>
+
+    </div>
+</div>
+</div>
+
+<div class="container my-4">
+<div class="row">
+    <div class="col-12 text-center">
+        <h4>Previously Shortened Url's</h4>
+    </div>
+</div>
+<div class="row justify-content-between">
+    {% for u in allURLs %}
+
+    <div class="col-10 col-sm-10 col-md-6 mb-2 mx-auto">
+
+        <div>
+
+            <p style="text-overflow: ellipsis;">Original : <a href="{{ u.original_url }}" target="_blank"
+                    class="card-link">{{ u.original_url }}</a>
+            </p>
+
+            <p>Shorten : <a href="http://localhost:8000/{{ u.short_url }}" target="_blank"
+                    class="card-link">http://localhost:8000/{{ u.short_url }}</a></p>
+            
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+</div>
+
+
+
+<style>
+.customcontainer {
+    min-width: 100%;
+    border: 2px solid #1d1d1d;
+    border-radius: 5px;
+    max-width: 100%;
+    height: 100%;
+}
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
